@@ -98,8 +98,17 @@ namespace Blazor.FileReader
             var startCallBack = await CurrentJSRuntime.InvokeAsync<long>(
                 $"FileReaderComponent.ReadFileMarshalledAsync",
                 new { position, count, callBackId, fileRef });
-
-            var longResult = await taskCompletionSource.Task;
+            ReadFileMarshalledAsyncCallbackParams longResult;
+            try
+            {
+                longResult = await taskCompletionSource.Task;
+            }
+            catch(Exception e)
+            {
+                var x = e;
+                throw;
+            }
+            
             var bytesRead = 0;
             if (!string.IsNullOrEmpty(longResult.Data?.Trim()))
             {
@@ -138,6 +147,18 @@ namespace Blazor.FileReader
         [JSInvokable(nameof(ReadFileAsyncError))]
         public static bool ReadFileAsyncError(ReadFileAsyncErrorParams args) { 
             if (!readFileAsyncCalls.TryRemove(args.CallBackId, out TaskCompletionSource<long> taskCompletionSource))
+            {
+                return false;
+            }
+
+            taskCompletionSource.SetException(new BrowserFileReaderException(args.Exception));
+            return true;
+        }
+
+        [JSInvokable(nameof(ReadFileMarshalledAsyncError))]
+        public static bool ReadFileMarshalledAsyncError(ReadFileAsyncErrorParams args)
+        {
+            if (!readFileMarshalledAsyncCalls.TryRemove(args.CallBackId, out TaskCompletionSource<ReadFileMarshalledAsyncCallbackParams> taskCompletionSource))
             {
                 return false;
             }

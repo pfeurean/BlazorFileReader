@@ -8,17 +8,18 @@
     <TypeScriptToolsVersion>2.8</TypeScriptToolsVersion>
     <LangVersion>latest</LangVersion>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>3.0.0-preview4-19216-03</Version>
+    <Version>0.10.19116</Version>
     <Authors>Tor Knutsson</Authors>
     <PackageProjectUrl>https://github.com/Tewr/BlazorFileReader</PackageProjectUrl>
-    <PackageLicenseUrl>https://github.com/Tewr/BlazorFileReader/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageLicenseUrl></PackageLicenseUrl>
     <RepositoryUrl>https://github.com/Tewr/BlazorFileReader</RepositoryUrl>
     <Description>Read-Only File streams in blazor</Description>
     <PackageTags>blazor blazor-component stream filestream file-stream read-file</PackageTags>
     <Configurations>Debug;Release;Ghpages</Configurations>
     <PackageId>Tewr.Blazor.FileReader</PackageId>
-    <PackageReleaseNotes>
-</PackageReleaseNotes>
+    <PackageReleaseNotes></PackageReleaseNotes>
+    <AssemblyVersion>0.10.19116.0</AssemblyVersion>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     
   </PropertyGroup>
 
@@ -30,14 +31,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Components.Browser" Version="3.0.0-preview4-19216-03" />
-    <PackageReference Include="Microsoft.AspNetCore.Blazor.Build" Version="3.0.0-preview4-19216-03" PrivateAssets="all" />
+    <EmbeddedResource Remove="content\FileReaderComponent.ts" />
   </ItemGroup>
 
   <ItemGroup>
-    <TypeScriptCompile Include="content\FileReaderComponent.ts">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </TypeScriptCompile>
+    <PackageReference Include="Microsoft.AspNetCore.Components.Browser" Version="3.0.0-preview4-19216-03" />
+    <PackageReference Include="Microsoft.AspNetCore.Blazor.Build" Version="3.0.0-preview4-19216-03" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.TypeScript.Msbuild" Version="3.4.4">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 
   <ItemGroup>
